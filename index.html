@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>포트폴리오페이지 스크롤</title>
+  <link rel="stylesheet" href="./css/index.css">
+
+
+  <script src="./js/jquery-3.7.1.min.js"></script>
+
+  <script>
+    $(function () {
+      let $menu = $('nav ul li');
+      let $con = $('.main section');
+      console.log($menu);
+      console.log($con);
+
+      $menu.click(function (event) {
+        // event.preventDefault();   a 요소의 기본 이벤트(링크연결) 삭제 - 여기를 활성화하면 이동 않됨
+
+        $menu.removeClass('active');
+        $(this).addClass('active');
+
+        let idx = $(this).index(); // 메뉴클릭시 idx를 통해 몇번 인덱스 메뉴인지 확인   
+        let section = $con.eq(idx) //  idx 로 전달한 인덱스 메뉴와  상응하는 section 선택
+        //let secDistance = section.offset.top;
+        let secDistance = section.offset().top;
+        $('html, body').stop(true).animate({ scrollTop: secDistance });
+
+
+        console.log(idx);
+        console.log(section);
+        console.log(secDistance);
+
+      });
+      // 이상은 클릭 이벤트, 아래는 스크롤 이벤트
+
+      $(window).scroll(function () {
+        $con.each(function () {
+          //each(): 제이쿼리 객체에 포함된 각 요소에 개별적 작업 실행. 즉, 각섹션마다 무언가 실행 의미
+          if ($(window).scrollTop() >= $(this).offset().top) {
+            let idx = $(this).index();
+            $menu.removeClass('active');
+            $menu.eq(idx).addClass('active');
+          }
+
+
+        });
+
+      });
+
+    });
+
+
+
+
+
+
+  </script>
+</head>
+
+<body>
+  <header>
+    <div><img src="./img/logo/logo-removebg-preview.png" alt='logo'></div>
+    <span>YST TRADING COMPANY</span>
+    <nav>
+      <ul>
+        <li class="active"><a href='#home'>HOME</a></li>
+        <li><a href='#portfolio'>PROFILE</a></li>
+        <li><a href='#about'>BUSINESS</a></li>
+        <li><a href='#contact'>CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="main">
+    <section id="home"><img src="./img/home.png" alt='home'> </section>
+    <section id="portfolio"><img src="./img/profile.png" alt='home'></section>
+    <section id="about"><img src="./img/business.png" alt="business"></section>
+    <section id="contact"><img src="./img/contact.png" alt="business"></section>
+
+  </div>
+
+  <!--  contact  -->
+
+
+  <!--  //contact  -->
+
+  <footer>
+    41166 대구 동구 화랑로 525 (용계동)| 전화번호: 053-983-8877 | 펙스번호 : 053-722-2423
+    대표자 : 곽승호 | 사업자번호 : 505-95-07029
+  </footer>
+
+</body>
+
+</html>
